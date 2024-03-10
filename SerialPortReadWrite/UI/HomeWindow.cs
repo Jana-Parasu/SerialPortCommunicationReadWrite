@@ -14,8 +14,7 @@ namespace SerialPortReadWrite
 {
     public partial class HomeWindow : Form
     {
-        private readonly ISerialPortManager serialPortManager;
-        //public event EventHandler<string> DataReceived;
+        private readonly ISerialPortManager serialPortManager;        
         private string DataIn;
         
         public HomeWindow(ISerialPortManager serialPortManager)
@@ -106,24 +105,10 @@ namespace SerialPortReadWrite
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void buttonConnect_Click(object sender, EventArgs e)
-        {
-            //ShowProgressBar();
-            //HideProgressBar();
-
-           // bool IsAllParamsSet = SetSerialPortParameters();
-            //ProgressBar.Value = 0;
+        {           
             try
-            {
-                //IProgress<int> progress = new Progress<int>(value =>
-                //{
-                //    ProgressBar.Value = value;
-                //});
-                //ProgressBar.Visible = true;
-
-                string portName = comboBoxPorts.SelectedItem as string;
-                //if (!string.IsNullOrEmpty(portName))
-                //{
-                //serialPortManager.DataReceived += SerialPortManager_DataReceived;
+            { 
+                string portName = comboBoxPorts.SelectedItem as string;               
                 serialPort1 = await serialPortManager.ConnectAsync(ShowProgressBar(), portName,cbxBaudRate.Text,cbxDataBits.Text,
                                                          cbxStopBits.Text,cbxParity.Text);                
                 if (serialPort1 == null)
@@ -137,9 +122,7 @@ namespace SerialPortReadWrite
                 buttonConnect.Enabled = false;
                 buttonDisconnect.Enabled = true;
                 lblConnetedState.Visible = true;
-                lblDisconnectedState.Visible = false;
-                //}
-                //HideProgressBar();
+                lblDisconnectedState.Visible = false;                
             }
             catch (Exception ex)
             {
@@ -235,47 +218,7 @@ namespace SerialPortReadWrite
             }
         }
 
-        /// <summary>
-        /// Sending/writing data from Configured Serial port to paired port.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private async void buttonSend_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {  
-        //        string dataToSend = textBoxDataToSend.Text;
-        //        await serialPortManager.WriteAsync(dataToSend,rbWriteLine.Checked);
-        //        Console.WriteLine(DateTime.Now + " : Write Or send data : " + dataToSend);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error writing to serial port: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        Console.WriteLine("Exception : Error writing to serial port: File -'HomeWindow.cs', Method- 'buttonSend_Click()' " + ex.Message);
-        //    }
-        //}
-
-        //private void SerialPortManager_DataReceived(object sender, string data)
-        //{
-        //    try
-        //    {
-        //        if (textBoxReceivedData.InvokeRequired)
-        //        {
-        //            textBoxReceivedData.Invoke((MethodInvoker)(() => SerialPortManager_DataReceived(sender, data)));
-        //        }
-        //        else
-        //        {
-        //            textBoxReceivedData.AppendText(data + Environment.NewLine);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception : Error while handling Progress bar control : File -'HomeWindow.cs', Method- 'ShowProgressBar()' " + ex.Message);
-
-        //    }
-
-        //}
-
+       
         /// <summary>
         /// Clearing the data which was Write/Send to Paired Serial port
         /// </summary>
