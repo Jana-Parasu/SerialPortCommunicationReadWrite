@@ -1,13 +1,7 @@
 ﻿using SerialPortReadWrite.Services.DIInterfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SerialPortReadWrite
@@ -117,8 +111,7 @@ namespace SerialPortReadWrite
                 if (serialPort1.IsOpen)
                     HandleGUItoEnableFunctions(true);
 
-                serialPort1.DataReceived += SerialPort_DataReceived;
-                //ConnectedPort.DataReceived += SerialPortManager_DataReceived;
+                serialPort1.DataReceived += SerialPort_DataReceived;                
                 buttonConnect.Enabled = false;
                 buttonDisconnect.Enabled = true;
                 lblConnetedState.Visible = true;
@@ -166,12 +159,7 @@ namespace SerialPortReadWrite
         {
             ProgressBar.Value = 0;
             try
-            {
-                //IProgress<int> progress = new Progress<int>(value =>
-                //{
-                //    ProgressBar.Value = value;
-                //});
-                //ProgressBar.Visible = true;
+            {                
                 serialPort1 = await serialPortManager.DisconnectAsync(ShowProgressBar());
                 Console.WriteLine(DateTime.Now + " : DISCONNECTED, configured serial port - " + serialPort1.PortName);
                 if (!serialPort1.IsOpen)
