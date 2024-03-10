@@ -274,6 +274,7 @@ namespace SerialPortReadWrite
             this.textBoxDataToSend.Location = new System.Drawing.Point(9, 21);
             this.textBoxDataToSend.Multiline = true;
             this.textBoxDataToSend.Name = "textBoxDataToSend";
+            this.textBoxDataToSend.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxDataToSend.Size = new System.Drawing.Size(281, 179);
             this.textBoxDataToSend.TabIndex = 1;
             this.textBoxDataToSend.TextChanged += new System.EventHandler(this.tbxSendDataTxtChanged);
@@ -410,6 +411,7 @@ namespace SerialPortReadWrite
             this.textBoxReceivedData.Multiline = true;
             this.textBoxReceivedData.Name = "textBoxReceivedData";
             this.textBoxReceivedData.ReadOnly = true;
+            this.textBoxReceivedData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxReceivedData.Size = new System.Drawing.Size(294, 179);
             this.textBoxReceivedData.TabIndex = 1;
             // 

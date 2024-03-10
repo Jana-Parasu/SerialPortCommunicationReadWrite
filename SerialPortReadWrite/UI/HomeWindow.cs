@@ -268,7 +268,8 @@ namespace SerialPortReadWrite
                     textBoxReceivedData.Text = DataIn;
                     Console.WriteLine(DateTime.Now + " : Read Or receive data : " + textBoxReceivedData.Text);
                 }
-                    
+                textBoxReceivedData.SelectionStart = textBoxReceivedData.TextLength;
+                textBoxReceivedData.ScrollToCaret();
             }
             catch (Exception ex)
             {
