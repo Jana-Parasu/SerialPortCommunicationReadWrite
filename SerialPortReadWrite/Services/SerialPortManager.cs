@@ -10,10 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 
 namespace SerialPortReadWrite.Services
-{
-    // Define the delegate type for the event handler
-    //public delegate void DataReceivedEventHandler(object sender, string data);
-
+{  
     public class SerialPortManager : ISerialPortManager
     {
         private SerialPort serialPort;
@@ -40,11 +37,9 @@ namespace SerialPortReadWrite.Services
             {                            
                 serialPort = new SerialPort(portName);
                 if (!SetSerialPortParameters(baudrate, dataBits, stopBits, parityBits))
-                    return null;
-                
-                //serialPort.DataReceived += SerialPort_DataReceived;
+                    return null; 
                
-                 await Task.Run(() =>
+                await Task.Run(() =>
                 {
                     try
                     {
@@ -93,8 +88,7 @@ namespace SerialPortReadWrite.Services
                 await Task.Run(() =>
                 {
                     if (serialPort != null && serialPort.IsOpen)
-                    {
-                        //serialPort.DataReceived -= SerialPort_DataReceived;
+                    {                        
                         serialPort.Close();
                         serialPort.Dispose();
 
