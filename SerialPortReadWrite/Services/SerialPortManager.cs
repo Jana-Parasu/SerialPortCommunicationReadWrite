@@ -23,17 +23,17 @@ namespace SerialPortReadWrite.Services
         /// ASYNC method to connect and configured the serial port
         /// </summary>
         /// <returns></returns>
-        public async Task<SerialPort> ConnectAsync(IProgress<int> progress, 
+        public async Task<SerialPort> ConnectAsync(IProgress<int> progress,
                                              string portName, string baudrate, string dataBits,
                                               string stopBits, string parityBits)
         {
-           
+
             try
-            {                            
+            {
                 serialPort = new SerialPort(portName);
                 if (!SetSerialPortParameters(baudrate, dataBits, stopBits, parityBits))
-                    return null; 
-               
+                    return null;
+
                 await Task.Run(() =>
                 {
                     try
@@ -45,22 +45,27 @@ namespace SerialPortReadWrite.Services
                     }
                     catch (System.IO.IOException ioExp)
                     {
+                        MessageBox.Show($"Error connecting to serial port: {ioExp.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Console.WriteLine("Exception : System.IO.IOException Occured While connecting serial ports: File -" +
                                           "'SerialPortManager.cs', Method- 'ConnectAsync()' " + ioExp.Message);
                     }
                     catch (UnauthorizedAccessException unAuthAccException)
                     {
+                        MessageBox.Show($"Error connecting to serial port: {unAuthAccException.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Console.WriteLine("Exception : UnauthorizedAccessException Occured While connecting serial ports: File -" +
-                                          "'SerialPortManager.cs', Method- 'ConnectAsync()' " + unAuthAccException.Message);                        
+                                          "'SerialPortManager.cs', Method- 'ConnectAsync()' " + unAuthAccException.Message);
                     }
 
-                    for (int i = 0; i <= 100; i += 10)
+                    if (serialPort.IsOpen)
                     {
-                        progress.Report(i);
-                        Task.Delay(100).Wait();
+                        for (int i = 0; i <= 100; i += 10)
+                        {
+                            progress.Report(i);
+                            Task.Delay(100).Wait();
+                        }
                     }
                 });
-                
+
             }
             catch (Exception ex)
             {

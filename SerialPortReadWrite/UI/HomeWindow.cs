@@ -99,29 +99,31 @@ namespace SerialPortReadWrite
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void buttonConnect_Click(object sender, EventArgs e)
-        {           
+        {
             try
-            { 
-                string portName = comboBoxPorts.SelectedItem as string;               
-                serialPort1 = await serialPortManager.ConnectAsync(ShowProgressBar(), portName,cbxBaudRate.Text,cbxDataBits.Text,
-                                                         cbxStopBits.Text,cbxParity.Text);                
+            {
+                string portName = comboBoxPorts.SelectedItem as string;
+                serialPort1 = await serialPortManager.ConnectAsync(ShowProgressBar(), portName, cbxBaudRate.Text, cbxDataBits.Text,
+                                                         cbxStopBits.Text, cbxParity.Text);
                 if (serialPort1 == null)
                     return;
                 Console.WriteLine(DateTime.Now + " : CONNECTED and configured serial port - " + serialPort1.PortName + " Successfully!!");
                 if (serialPort1.IsOpen)
+                {
                     HandleGUItoEnableFunctions(true);
 
-                serialPort1.DataReceived += SerialPort_DataReceived;                
-                buttonConnect.Enabled = false;
-                buttonDisconnect.Enabled = true;
-                lblConnetedState.Visible = true;
-                lblDisconnectedState.Visible = false;                
+                    serialPort1.DataReceived += SerialPort_DataReceived;
+                    buttonConnect.Enabled = false;
+                    buttonDisconnect.Enabled = true;
+                    lblConnetedState.Visible = true;
+                    lblDisconnectedState.Visible = false;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error connecting to serial port: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("Exception : Error connecting to serial port: File -'HomeWindow.cs', Method- 'buttonConnect_Click()' " + ex.Message);
-            }           
+            }
         }
 
         /// <summary>
